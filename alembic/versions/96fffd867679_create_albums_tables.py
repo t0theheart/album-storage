@@ -1,4 +1,4 @@
-"""create albums table
+"""create albums tables
 
 Revision ID: 96fffd867679
 Revises: 
@@ -20,7 +20,7 @@ def upgrade():
     op.create_table(
         'ALBUMS',
         sa.Column('ID', sa.Integer(), autoincrement=True, primary_key=True, unique=True, nullable=False),
-        sa.Column('NAME', sa.String(100), nullable=False),
+        sa.Column('TITLE', sa.String(100), nullable=False),
         sa.Column('AUTHOR', sa.String(50), nullable=False)
     )
 
@@ -29,8 +29,8 @@ def upgrade():
         sa.Column('ID', sa.Integer(), autoincrement=True, primary_key=True, unique=True, nullable=False),
         sa.Column('ALBUM_ID', sa.Integer(), nullable=False),
         sa.Column('PAGE', sa.Integer(), nullable=False),
-        sa.Column('TEXT', sa.String(1000)),
-        sa.Column('IMAGE', sa.String(1000))
+        sa.Column('TEXT', sa.String(1000), nullable=False),
+        sa.Column('IMAGE', sa.String(1000), nullable=False)
     )
 
 
