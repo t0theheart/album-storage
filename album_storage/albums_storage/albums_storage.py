@@ -23,3 +23,10 @@ class AlbumsStorage(AlbumsStorageABC):
             '''
         async with self.pool.acquire() as con:
             await con.execute(sql)
+
+    async def get_albums(self) -> list:
+        sql = f'''SELECT * FROM "ALBUMS"'''
+        async with self.pool.acquire() as con:
+            result = await con.fetch(sql)
+            albums = [dict(album) for album in result]
+            return albums

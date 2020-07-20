@@ -12,3 +12,6 @@ class Albums(AlbumsABC):
         album_id = await self.storage.create_album(data['title'], data['author'])
         await self.storage.create_pages(album_id, data['pages'])
         return album_id
+
+    async def get(self) -> list:
+        return await self.storage.get_albums()
