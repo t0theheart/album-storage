@@ -13,3 +13,13 @@ class Album(Schema):
 
 class AlbumsResponse(Schema):
     albums = fields.List(fields.Nested(Album()), required=True, description='Albums')
+
+
+class Page(Schema):
+    text = fields.String(required=True, attribute='TEXT', description='Text', example='something...')
+    image = fields.String(required=True, attribute='IMAGE', description='Image', example='https://www.example.com/image/1')
+    number = fields.Integer(required=True, attribute='PAGE', description='Page number', example='1')
+
+
+class PageResponse(Schema):
+    page = fields.Nested(Page(), required=True, description='Page')

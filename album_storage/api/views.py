@@ -1,5 +1,5 @@
 from aiohttp import web
-from album_storage.api.serializers import AlbumCreateRequest, AlbumCreateResponse, AlbumsResponse
+from album_storage.api.serializers import AlbumCreateRequest, AlbumCreateResponse, AlbumsResponse, PageResponse
 
 
 routes = web.RouteTableDef()
@@ -22,5 +22,17 @@ async def login(request):
     response = {'albums': albums}
     return web.json_response(
         data={'result': AlbumsResponse().dump(response)},
+        headers={'Access-Control-Allow-Origin': '*'}
+    )
+
+
+@routes.get('/albums/{album_id}/pages/{page}')
+async def login(request):
+    album_id = int(request.match_info['album_id'])
+    page = int(request.match_info['page'])
+    page = await request.app['albums'].get_page(album_id, page)
+    response = {'page': page}
+    return web.json_response(
+        data={'result': PageResponse().dump(response)},
         headers={'Access-Control-Allow-Origin': '*'}
     )

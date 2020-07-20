@@ -15,3 +15,6 @@ class Albums(AlbumsABC):
 
     async def get(self) -> list:
         return await self.storage.get_albums()
+
+    async def get_page(self, album_id: int, page: int) -> dict:
+        return await self.storage.get_page(album_id, page)

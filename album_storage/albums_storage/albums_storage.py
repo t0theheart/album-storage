@@ -30,3 +30,12 @@ class AlbumsStorage(AlbumsStorageABC):
             result = await con.fetch(sql)
             albums = [dict(album) for album in result]
             return albums
+
+    async def get_page(self, album_id: int, page: int) -> dict:
+        sql = f'''
+            SELECT * FROM "PAGES" 
+            WHERE "ALBUM_ID" = {album_id} AND "PAGE" = {page}
+        '''
+        async with self.pool.acquire() as con:
+            page = await con.fetchrow(sql)
+            return page
