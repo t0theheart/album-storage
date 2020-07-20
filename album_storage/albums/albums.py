@@ -5,5 +5,10 @@ from album_storage.albums_storage import AlbumsStorage
 class Albums(AlbumsABC):
     @classmethod
     async def start(cls):
-        cls.storage = await AlbumsStorage.connect('postgresql://user:password@postgres:5433/albums')
+        cls.storage = await AlbumsStorage.connect('postgresql://user:password@postgres:5432/albums')
         return cls()
+
+    async def create(self, data: dict):
+        album_id = await self.storage.create_album(data['title'], data['author'])
+        await self.storage.create_pages(album_id, data['pages'])
+        return album_id
